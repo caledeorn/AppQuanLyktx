@@ -1,0 +1,8 @@
+PBH001;101220197;P101;Bóng đèn;Bóng đèn nhà tắm bị cháy;Đã thay bóng mới Rạng Đông;10/12/2025;true;true
+PBH002;105220198;P102;Quạt trần;Quạt quay chậm phát ra tiếng kêu;Đang chờ mua tụ điện thay thế;11/12/2025;true;false
+PBH003;106220184;P103;Vòi nước;Vòi nước bồn rửa mặt rò rỉ;Chưa kiểm tra;12/12/2025;false;false
+PBH004;103220165;P104;Giường;Thanh chắn giường tầng 2 bị lỏng;Đã cử chú bảo vệ lên siết ốc;14/12/2025;true;true
+PBH005;123220134;P203;Cửa chính;Khóa cửa bị kẹt rất khó mở;Đã gọi thợ khóa, hẹn chiều nay;15/12/2025;true;false
+PBH006;107220284;P204;Công tắc điện;Công tắc bị liệt nút bật;Chưa kiểm tra;16/12/2025;false;false
+PBH007;101220337;P301;Bàn học;Chân bàn bị gãy mối hàn;Đã chuyển xuống xưởng hàn lại;17/12/2025;true;true
+PBH008;103230027;P302;Cửa sổ;Kính cửa sổ bị nứt do gió đập;Chờ báo giá thay kính;18/12/2025;true;false
