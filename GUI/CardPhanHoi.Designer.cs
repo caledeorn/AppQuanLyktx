@@ -1,6 +1,6 @@
 ﻿namespace WinFormsApp1.GUI
 {
-    partial class CardPhieuBaoHong
+    partial class CardPhanHoi
     {
         /// <summary> 
         /// Required designer variable.
@@ -96,9 +96,9 @@
             lblThietBi.AutoSize = true;
             lblThietBi.Location = new Point(14, 113);
             lblThietBi.Name = "lblThietBi";
-            lblThietBi.Size = new Size(50, 15);
+            lblThietBi.Size = new Size(82, 15);
             lblThietBi.TabIndex = 2;
-            lblThietBi.Text = "Thiết bị:";
+            lblThietBi.Text = "Loại phản hồi:";
             // 
             // lblMaPhong
             // 
@@ -118,13 +118,13 @@
             lblMaSV.TabIndex = 0;
             lblMaSV.Text = "Mã SV:";
             // 
-            // CardPhieuBaoHong
+            // CardPhanHoi
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlDark;
             Controls.Add(splitContainer1);
-            Name = "CardPhieuBaoHong";
+            Name = "CardPhanHoi";
             Size = new Size(160, 250);
             Click += CardPhieuBaoHong_Click;
             splitContainer1.Panel1.ResumeLayout(false);

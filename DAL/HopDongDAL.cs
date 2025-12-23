@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WinFormsApp1.Model;
+using System.IO;
 
 namespace WinFormsApp1.DAL
 {
@@ -14,12 +15,14 @@ namespace WinFormsApp1.DAL
             List<HopDong> danhSachHopDong = new List<HopDong>();
             try
             {
-                if (!File.Exists(filePath))
+                string working = GetWorkingFilePath(filePath);
+                string pathToRead = File.Exists(working) ? working : filePath;
+                if (!File.Exists(pathToRead))
                 {
-                    Console.WriteLine($"Không tìm thấy file: {filePath}");
+                    Console.WriteLine($"Không tìm thấy file: {pathToRead}");
                     return danhSachHopDong;
                 }
-                var lines = File.ReadAllLines(filePath);
+                var lines = File.ReadAllLines(pathToRead);
                 foreach (var line in lines)
                 {
                     if (string.IsNullOrWhiteSpace(line)) continue;
@@ -45,5 +48,63 @@ namespace WinFormsApp1.DAL
             return danhSachHopDong;
         }
 
+        // Save hop dong list to working file
+        public void SaveHopDongToFile(string filePath, List<HopDong> danhSach)
+        {
+            try
+            {
+                var lines = new List<string>();
+                foreach (var hd in danhSach)
+                {
+                    // Format: maSV;maPhong;ngayBatDau;ngayKetThuc
+                    lines.Add($"{hd.sv?.MaSV};{hd.p?.maPhong};{hd.ngayBatDau:dd/MM/yyyy};{hd.ngayKetThuc:dd/MM/yyyy}");
+                }
+
+                string working = GetWorkingFilePath(filePath);
+                string temp = working + ".tmp";
+                File.WriteAllLines(temp, lines, Encoding.UTF8);
+                if (File.Exists(working))
+                {
+                    string backup = working + ".bak";
+                    try
+                    {
+                        File.Replace(temp, working, backup, true);
+                        if (File.Exists(backup)) File.Delete(backup);
+                    }
+                    catch
+                    {
+                        File.Delete(working);
+                        File.Move(temp, working);
+                    }
+                }
+                else
+                {
+                    File.Move(temp, working);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Lỗi khi ghi file HopDong: {ex.Message}");
+            }
+        }
+
+        private string GetWorkingFilePath(string originalFilePath)
+        {
+            if (string.IsNullOrWhiteSpace(originalFilePath)) return originalFilePath;
+            try
+            {
+                string dir = Path.GetDirectoryName(originalFilePath);
+                string name = Path.GetFileNameWithoutExtension(originalFilePath);
+                string ext = Path.GetExtension(originalFilePath);
+                string workingName = name + "1" + ext; // e.g. HopDong -> HopDong1.txt
+                if (string.IsNullOrEmpty(dir))
+                    return workingName;
+                return Path.Combine(dir, workingName);
+            }
+            catch
+            {
+                return originalFilePath;
+            }
+        }
     }
 }

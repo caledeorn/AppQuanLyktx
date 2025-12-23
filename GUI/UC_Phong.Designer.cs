@@ -155,7 +155,7 @@
             // 
             // btnClear
             // 
-            btnClear.Location = new Point(242, 64);
+            btnClear.Location = new Point(242, 60);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(89, 38);
             btnClear.TabIndex = 18;
@@ -186,7 +186,7 @@
             // 
             groupBox6.Controls.Add(radNu);
             groupBox6.Controls.Add(radNam);
-            groupBox6.Location = new Point(242, 18);
+            groupBox6.Location = new Point(242, 15);
             groupBox6.Name = "groupBox6";
             groupBox6.Size = new Size(172, 42);
             groupBox6.TabIndex = 17;
@@ -522,6 +522,7 @@
             // 
             // dgvDanhSach
             // 
+            dgvDanhSach.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvDanhSach.BackgroundColor = SystemColors.ButtonHighlight;
             dgvDanhSach.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvDanhSach.Dock = DockStyle.Fill;

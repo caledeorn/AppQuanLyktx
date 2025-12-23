@@ -12,10 +12,10 @@ namespace WinFormsApp1.BLL
     {
         private List<HoaDon> _danhSachHoaDon;
         private HoaDonDAL hdRepo;
-        public HoaDonBLL(HoaDonDAL repository, PhongBLL QLPhong)
+        public HoaDonBLL(HoaDonDAL repository, List<Phong> danhSachPhong)
         {
             hdRepo = repository;
-            _danhSachHoaDon = hdRepo.LoadHoaDonTuFile("HoaDon.txt",QLPhong);
+            _danhSachHoaDon = hdRepo.LoadHoaDonTuFile("HoaDon.txt", danhSachPhong);
         }
         public List<HoaDon> danhSachHoaDon()
         {

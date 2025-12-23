@@ -75,7 +75,7 @@
             btnDangNhap.Location = new Point(138, 166);
             btnDangNhap.Name = "btnDangNhap";
             btnDangNhap.Size = new Size(117, 29);
-            btnDangNhap.TabIndex = 2;
+            btnDangNhap.TabIndex = 3;
             btnDangNhap.Text = "Đăng Nhập";
             btnDangNhap.UseVisualStyleBackColor = true;
             btnDangNhap.Click += btnDangNhap_Click;
@@ -88,7 +88,8 @@
             panel2.Name = "panel2";
             panel2.Padding = new Padding(1);
             panel2.Size = new Size(117, 18);
-            panel2.TabIndex = 4;
+            panel2.TabIndex = 1;
+            panel2.TabStop = true;
             // 
             // txtPassword
             // 
@@ -98,7 +99,7 @@
             txtPassword.Name = "txtPassword";
             txtPassword.PasswordChar = '*';
             txtPassword.Size = new Size(115, 14);
-            txtPassword.TabIndex = 0;
+            txtPassword.TabIndex = 2;
             txtPassword.UseSystemPasswordChar = true;
             // 
             // panel1
@@ -119,7 +120,7 @@
             txtUserName.Location = new Point(1, 1);
             txtUserName.Name = "txtUserName";
             txtUserName.Size = new Size(114, 14);
-            txtUserName.TabIndex = 0;
+            txtUserName.TabIndex = 1;
             // 
             // FormDangNhap
             // 

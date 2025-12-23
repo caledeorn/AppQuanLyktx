@@ -10,6 +10,13 @@ namespace WinFormsApp1.Model
     {
         public string maHoaDon {  get; set; }
         public Phong phong { get; set; }
+        public string maPhong 
+        { 
+            get 
+            { 
+                return phong.maPhong; 
+            }
+        }
         public int soDien {  get; set; }
         public int soNuoc { get; set; }
         public DateTime ngayLap { get; set; }

@@ -17,15 +17,14 @@ namespace WinFormsApp1.GUI
             InitializeComponent();
         }
 
-        public void setData(string maPhong, int soLuong,int tienPhong,bool gioiTinh,int soSinhVien,int soDonBaoHong)
+        public void setData(string maPhong, int soLuong,int tienPhong,bool gioiTinh,int soSinhVien)
         {
             lblMaPhong.Text = maPhong;
             lblSoLuong.Text += soLuong.ToString();
             lblTienPhong.Text += tienPhong.ToString();
             String gioiTinhStr = gioiTinh ? "Nam" : "Nữ";
-            lblGioiTinh.Text += gioiTinh;
+            lblGioiTinh.Text += gioiTinhStr;
             lblSoSV.Text += soSinhVien.ToString();
-            lblSoDBH.Text += soDonBaoHong.ToString();
         }
         
     }

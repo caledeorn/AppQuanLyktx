@@ -10,10 +10,10 @@ using System.Windows.Forms;
 
 namespace WinFormsApp1.GUI
 {
-    public partial class CardPhieuBaoHong : UserControl
+    public partial class CardPhanHoi : UserControl
     {
         public event EventHandler OnSelect;
-        public CardPhieuBaoHong()
+        public CardPhanHoi()
         {
             InitializeComponent();
             WireAllControls(this);

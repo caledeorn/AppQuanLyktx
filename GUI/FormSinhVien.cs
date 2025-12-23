@@ -20,29 +20,91 @@ namespace WinFormsApp1.GUI
         {
             InitializeComponent();
             sv = QuanLyKTX.Instance.QLSinhVien.timKiem(tk);
-            loadDanhSach();
-            loadThongBao();
+            if (sv.Phong == null)
+            {
+                lblDanhSach.Text = "Chưa có phòng";
+                btnHoaDon.Enabled = false;
+                button1.Enabled = false;
+            }
+            else
+            {
+                loadDanhSach();
+                loadThongBao();
+            }
             loadNhanThan();
         }
         private void loadDanhSach()
         {
-            dgvDanhSach.Controls.Clear();
-            dgvDanhSach.DataSource = sv.Phong.danhSachSV;
-            dgvDanhSach.Columns["Phong"].Visible = false;
-            dgvDanhSach.Columns["GioiTinh"].Visible = false;
-            dgvDanhSach.Columns["GioiTinhHienThi"].Visible = false;
-            dgvDanhSach.Columns["NgaySinh"].HeaderText = "Ngày Sinh";
-            dgvDanhSach.Columns["MaPhong"].HeaderText = "Mã Phòng";
-            dgvDanhSach.Columns["MaSV"].HeaderText = "Mã SV";
-            dgvDanhSach.Columns["HoTen"].HeaderText = "Họ Tên";
-            dgvDanhSach.Columns["SoDienThoai"].HeaderText = "Số Điện Thoại";
-            // 1. Cho phép cột "HoTen" tự xuống dòng khi chữ quá dài
-            // Lưu ý: Chữ "HoTen" trong ngoặc phải đúng y hệt tên cột (Name) hoặc DataPropertyName bạn đặt
-            dgvDanhSach.Columns["HoTen"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            // 1. Kiểm tra nếu sinh viên chưa có phòng
+            if (sv.Phong == null)
+            {
+                lblDanhSach.Text = "Bạn chưa có phòng.";
+                // Xóa dữ liệu cũ trên lưới nếu có
+                dgvDanhSach.DataSource = null;
+                return;
+            }
+            try
+            {
+                // 2. Lấy danh sách sinh viên
+                var listSV = sv.Phong.danhSachSV;
 
-            // 2. Bắt buộc hàng phải tự giãn chiều cao để chứa đủ chữ (QUAN TRỌNG)
-            dgvDanhSach.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+                // 3. KIỂM TRA AN TOÀN: Nếu danh sách null hoặc rỗng thì dừng lại
+                // Nếu không có dữ liệu, không cần format cột làm gì cho lỗi
+                if (listSV == null || listSV.Count == 0)
+                {
+                    dgvDanhSach.DataSource = null;
+                    return;
+                }
 
+                // 4. Gán nguồn dữ liệu
+                // Lưu ý: Đừng dùng dgvDanhSach.Controls.Clear(), nó sai mục đích.
+                // Để reset dữ liệu, chỉ cần gán DataSource mới là được.
+                dgvDanhSach.DataSource = listSV;
+
+                // 5. Cấu hình cột (Dùng toán tử ?. để tránh lỗi nếu cột không tìm thấy)
+                // Cách viết: dgv.Columns["Ten"]?.ThuocTinh = ...
+
+                if (dgvDanhSach.Columns["Phong"] != null)
+                    dgvDanhSach.Columns["Phong"].Visible = false;
+
+                if (dgvDanhSach.Columns["GioiTinh"] != null)
+                    dgvDanhSach.Columns["GioiTinh"].Visible = false;
+
+                if (dgvDanhSach.Columns["GioiTinhHienThi"] != null)
+                    dgvDanhSach.Columns["GioiTinhHienThi"].Visible = false;
+
+                if (dgvDanhSach.Columns["anhDaiDien"] != null)
+                    dgvDanhSach.Columns["anhDaiDien"].Visible = false;
+
+                // Format HeaderText
+                if (dgvDanhSach.Columns["NgaySinh"] != null)
+                    dgvDanhSach.Columns["NgaySinh"].HeaderText = "Ngày Sinh";
+
+                if (dgvDanhSach.Columns["MaPhong"] != null)
+                    dgvDanhSach.Columns["MaPhong"].HeaderText = "Mã Phòng";
+
+                if (dgvDanhSach.Columns["MaSV"] != null)
+                    dgvDanhSach.Columns["MaSV"].HeaderText = "Mã SV";
+
+                if (dgvDanhSach.Columns["HoTen"] != null)
+                {
+                    dgvDanhSach.Columns["HoTen"].HeaderText = "Họ Tên";
+                    dgvDanhSach.Columns["HoTen"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+                }
+
+                if (dgvDanhSach.Columns["SoDienThoai"] != null)
+                    dgvDanhSach.Columns["SoDienThoai"].HeaderText = "Số Điện Thoại";
+
+                // Tự động giãn dòng
+                dgvDanhSach.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Đã có lỗi xảy ra khi tải danh sách sinh viên: " + ex.Message,
+                                "Lỗi",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
         }
         private void loadThongBao()
         {
@@ -55,7 +117,7 @@ namespace WinFormsApp1.GUI
                 else if (tb.daXuLy == false) trangThai = "Đã tiếp nhận";
                 else trangThai = "Đã xư lý";
                 UCThongBao uc = new UCThongBao();
-                uc.setData(tb.ngayBaoHong, trangThai, tb.moTa, tb.phanHoi);
+                uc.setData(tb.ngayBaoHong, trangThai, tb.noiDung, tb.phanHoi);
                 flpThongBao.Controls.Add(uc);
             }
         }
@@ -63,7 +125,18 @@ namespace WinFormsApp1.GUI
         {
             groupBox1.Controls.Clear();
             UCNhanThan uc = new UCNhanThan();
-            uc.setData(sv.HoTen, sv.MaSV, sv.Phong.maPhong, sv.SoDienThoai, sv.GioiTinh, sv.NgaySinh, QuanLyKTX.Instance.QLHopDong.timKiemHopDongTheoMaSV(sv.MaSV).ngayKetThuc);
+            string maPhong;
+            DateTime ngayKetThuc;
+            if (sv.Phong == null)
+            {
+                maPhong = "";
+                ngayKetThuc = DateTime.Now;
+
+            }
+            else { maPhong = sv.Phong.maPhong;
+                ngayKetThuc=QuanLyKTX.Instance.QLHopDong.timKiemHopDongTheoMaSV(sv.MaSV).ngayKetThuc;
+            }
+            uc.setData(sv.HoTen, sv.MaSV, maPhong, sv.SoDienThoai, sv.GioiTinh, sv.NgaySinh, ngayKetThuc, sv.AnhDaiDien);
             uc.Dock = DockStyle.Fill;
             groupBox1.Controls.Add(uc);
         }
@@ -79,6 +152,7 @@ namespace WinFormsApp1.GUI
         }
         private void FormSinhVien_FormClosed(object sender, FormClosedEventArgs e)
         {
+            QuanLyKTX.Instance.SaveAllData();
             Application.Exit();
         }
 
@@ -95,24 +169,24 @@ namespace WinFormsApp1.GUI
         private void button1_Click(object sender, EventArgs e)
         {
             lblThongbao.Text = "";
-            string thietBi = txtThietBi.Text;
-            string moTa = txtMoTa.Text;
+            string loaiPhanHoi = txtLoaiPhanHoi.Text;
+            string noiDung= txtMoTa.Text;
             DateTime ngayLap = DateTime.Now.Date;
-            if (txtThietBi.Text == "")
+            if (txtLoaiPhanHoi.Text == "")
             {
-                lblThongbao.Text = "Thiết bị không được để trống.";
+                lblThongbao.Text = "Loại phản hồi không được để trống.";
                 lblThongbao.ForeColor = Color.Red;
-                txtThietBi.Focus();
+                txtLoaiPhanHoi.Focus();
                 return;
             }
             else if (txtMoTa.Text == "")
             {
-                lblThongbao.Text = "Mô tả không được để trống.";
+                lblThongbao.Text = "Nội dung không được để trống.";
                 lblThongbao.ForeColor = Color.Red;
                 txtMoTa.Focus();
                 return;
             }
-            QuanLyKTX.Instance.QLPhieuBaoHong.taoPhieuBaoHong(sv, thietBi, moTa, ngayLap);
+            QuanLyKTX.Instance.QLPhieuBaoHong.taoPhanHoi(sv, loaiPhanHoi, noiDung, ngayLap);
             lblThongbao.Text = "Tạo phiếu báo hỏng thành công.";
             lblThongbao.ForeColor = Color.Green;
             loadThongBao();
@@ -129,6 +203,7 @@ namespace WinFormsApp1.GUI
             // 2. Nếu chọn Yes thì đăng xuất
             if (traloi == DialogResult.Yes)
             {
+                QuanLyKTX.Instance.SaveAllData(); // Lưu dữ liệu trước khi đăng xuất
                 Application.Restart(); // Khởi động lại ứng dụng
                 Environment.Exit(0);   // Đảm bảo đóng hoàn toàn luồng cũ
             }

@@ -11,3 +11,4 @@ obj/
 *.exe
 *.dll
 *.pdb
+*.csproj.user

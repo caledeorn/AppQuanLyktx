@@ -1,6 +1,6 @@
 ﻿namespace WinFormsApp1.GUI
 {
-    partial class UC_PhieuBaoHong
+    partial class UC_PhanHoi
     {
         /// <summary> 
         /// Required designer variable.
@@ -71,12 +71,12 @@
             groupBox2.Dock = DockStyle.Right;
             groupBox2.FlatStyle = FlatStyle.System;
             groupBox2.Font = new Font("Times New Roman", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            groupBox2.Location = new Point(508, 48);
+            groupBox2.Location = new Point(508, 60);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(693, 552);
+            groupBox2.Size = new Size(693, 540);
             groupBox2.TabIndex = 1;
             groupBox2.TabStop = false;
-            groupBox2.Text = "Danh sách phiếu báo hỏng";
+            groupBox2.Text = "Danh sách phản hồi";
             // 
             // flpDanhSach
             // 
@@ -85,17 +85,18 @@
             flpDanhSach.Font = new Font("Times New Roman", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             flpDanhSach.Location = new Point(3, 25);
             flpDanhSach.Name = "flpDanhSach";
-            flpDanhSach.Size = new Size(687, 524);
+            flpDanhSach.Size = new Size(687, 512);
             flpDanhSach.TabIndex = 0;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(475, 18);
+            label1.Font = new Font("Times New Roman", 22F, FontStyle.Bold);
+            label1.Location = new Point(455, 18);
             label1.Name = "label1";
-            label1.Size = new Size(38, 15);
+            label1.Size = new Size(282, 35);
             label1.TabIndex = 0;
-            label1.Text = "label1";
+            label1.Text = "Phản hồi từ sinh viên";
             // 
             // groupBox1
             // 
@@ -105,7 +106,7 @@
             groupBox1.Margin = new Padding(3, 2, 3, 2);
             groupBox1.Name = "groupBox1";
             groupBox1.Padding = new Padding(3, 2, 3, 2);
-            groupBox1.Size = new Size(1201, 48);
+            groupBox1.Size = new Size(1201, 60);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             // 
@@ -120,7 +121,7 @@
             groupBox3.Controls.Add(btnDonChuaXuLy);
             groupBox3.Controls.Add(btnDonMoi);
             groupBox3.Dock = DockStyle.Top;
-            groupBox3.Location = new Point(0, 48);
+            groupBox3.Location = new Point(0, 60);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new Size(508, 150);
             groupBox3.TabIndex = 2;
@@ -136,11 +137,13 @@
             // 
             // cboThuocTinh
             // 
+            cboThuocTinh.DropDownStyle = ComboBoxStyle.DropDownList;
             cboThuocTinh.FormattingEnabled = true;
             cboThuocTinh.Location = new Point(286, 77);
             cboThuocTinh.Name = "cboThuocTinh";
             cboThuocTinh.Size = new Size(121, 23);
             cboThuocTinh.TabIndex = 6;
+            cboThuocTinh.SelectedIndexChanged += cboThuocTinh_SelectedIndexChanged;
             // 
             // txtThongTin
             // 
@@ -216,9 +219,9 @@
             groupBox4.Controls.Add(label11);
             groupBox4.Controls.Add(label);
             groupBox4.Dock = DockStyle.Fill;
-            groupBox4.Location = new Point(0, 198);
+            groupBox4.Location = new Point(0, 210);
             groupBox4.Name = "groupBox4";
-            groupBox4.Size = new Size(508, 402);
+            groupBox4.Size = new Size(508, 390);
             groupBox4.TabIndex = 3;
             groupBox4.TabStop = false;
             // 
@@ -294,9 +297,9 @@
             label14.AutoSize = true;
             label14.Location = new Point(28, 131);
             label14.Name = "label14";
-            label14.Size = new Size(50, 15);
+            label14.Size = new Size(82, 15);
             label14.TabIndex = 9;
-            label14.Text = "Thiết bị:";
+            label14.Text = "Loại phản hồi:";
             // 
             // btnXacNhan
             // 
@@ -329,9 +332,9 @@
             label15.AutoSize = true;
             label15.Location = new Point(28, 173);
             label15.Name = "label15";
-            label15.Size = new Size(41, 15);
+            label15.Size = new Size(60, 15);
             label15.TabIndex = 4;
-            label15.Text = "Mô tả:";
+            label15.Text = "Nội dung:";
             // 
             // label13
             // 
@@ -360,7 +363,7 @@
             label.TabIndex = 0;
             label.Text = "Mã SV:";
             // 
-            // UC_PhieuBaoHong
+            // UC_PhanHoi
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -370,7 +373,7 @@
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Margin = new Padding(3, 2, 3, 2);
-            Name = "UC_PhieuBaoHong";
+            Name = "UC_PhanHoi";
             Size = new Size(1201, 600);
             groupBox2.ResumeLayout(false);
             groupBox1.ResumeLayout(false);

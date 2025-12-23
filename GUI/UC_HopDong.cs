@@ -74,6 +74,8 @@ namespace WinFormsApp1.GUI
                 {
                     btnClear.Enabled = true;
                     btnXoa.Enabled = true;
+                    cboMaPhong.Enabled = false;
+                    cboMaSV.Enabled = false;
                     cboMaPhong.Text = hd.p.maPhong;
                     cboMaSV.Text = hd.sv.MaSV;
                     lblTienPhong.Text = hd.tienPhong.ToString();
@@ -135,6 +137,7 @@ namespace WinFormsApp1.GUI
             if (thuocTinh == "")
             {
                 lblTBTK.Text = "Vui lòng chọn thuộc tính để tìm kiếm.";
+
                 return;
             }
             if (thuocTinh == "Tiền Phong")
@@ -142,6 +145,8 @@ namespace WinFormsApp1.GUI
                 if (!int.TryParse(text, out int tienPhong))
                 {
                     lblTBTK.Text = "Lỗi: Vui lòng nhập số hợp lệ.";
+                    lblTBTK.ForeColor = Color.Red;
+                    txtText.Focus();
                     return;
                 }
             }
@@ -150,11 +155,14 @@ namespace WinFormsApp1.GUI
                 if (!DateTime.TryParse(text, out DateTime date))
                 {
                     lblTBTK.Text = "Lỗi: Vui lòng nhập ngày hợp lệ.";
+                    lblTBTK.ForeColor = Color.Red;
+                    txtText.Focus();
                     return;
                 }
             }
             List<HopDong> result = QuanLyKTX.Instance.QLHopDong.timKiemHopDong(text, thuocTinh);
             lblTBTK.Text = $"Tìm thấy {result.Count} hợp đồng.";
+            lblTBTK.ForeColor = Color.Green;
             loadData(result, flpTimKiem);
 
         }
@@ -170,17 +178,21 @@ namespace WinFormsApp1.GUI
             if (maSV.Length < 0)
             {
                 lblThongBao.Text = "Vui lòng nhập mã sinh viên để thao tác";
+                
             }
             string result = QuanLyKTX.Instance.QLHopDong.xoaHopDong(maSV);
             if (result == "Xóa hợp đồng thành công.")
             {
+                
+                clear();
                 lblThongBao.Text += result;
-
+                lblThongBao.ForeColor = Color.Green;
+                flpTimKiem.Focus();
             }
             else
             {
                 lblThongBao.Text += result;
-                clear();
+                lblThongBao.ForeColor = Color.Red;
             }
             loadData(QuanLyKTX.Instance.QLHopDong.danhSachHopDong(), flpDanhSachHopDong);
         }

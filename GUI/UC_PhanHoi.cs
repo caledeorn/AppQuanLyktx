@@ -12,47 +12,59 @@ using WinFormsApp1.Model;
 
 namespace WinFormsApp1.GUI
 {
-    public partial class UC_PhieuBaoHong : UserControl
+    public partial class UC_PhanHoi : UserControl
     {
-        public UC_PhieuBaoHong()
+        public UC_PhanHoi()
         {
             InitializeComponent();
-            loadPhieuBaoHong(QuanLyKTX.Instance.QLPhieuBaoHong.danhSachPhieuBaoHong());
+            loadPhieuBaoHong(QuanLyKTX.Instance.QLPhieuBaoHong.danhSachPhanHoi());
             clear();
             cboThuocTinh.Items.Add("Mã phòng");
-            cboThuocTinh.Items.Add("Thiết bị");
+            cboThuocTinh.Items.Add("Loại phản hồi");
             cboThuocTinh.Items.Add("Mã SV");
             cboThuocTinh.Items.Add("Ngày lập đơn");
+            btnTimKiem.Enabled = false;
         }
-        private void loadPhieuBaoHong(List<PhieuBaoHong> phieuBaoHongs)
+        private void loadPhieuBaoHong(List<PhanHoi> phieuBaoHongs)
         {
 
             flpDanhSach.Controls.Clear();
             foreach (var pbh in phieuBaoHongs)
             {
-                var card = new CardPhieuBaoHong();
-                card.setData(pbh.maPhieu, pbh.phong.maPhong, pbh.sv.MaSV, pbh.thietBi, pbh.ngayBaoHong.ToString("dd/MM/yyyy"), pbh.daXuLy ? "Đã xử lý" : "Chưa xử lý");
-                flpDanhSach.Controls.Add(card);
-                card.OnSelect += (s, e) =>
+                var card = new CardPhanHoi();
+                string trangThai;
+                if (pbh.daTiepNhan == false)
+                    trangThai = "Chưa tiếp nhận";
+                else if (pbh.daXuLy == false)
                 {
-                    groupBox4.Text = pbh.maPhieu;
-                    lblMaPhong.Text = pbh.phong.maPhong;
-                    lblMaSV.Text = pbh.sv.MaSV;
-                    lblMoTa.Text = pbh.moTa;
-                    lblNgay.Text = pbh.ngayBaoHong.ToString("dd/MM/yyyy");
-                    lblThietBi.Text = pbh.thietBi;
-                    if (pbh.daTiepNhan == false)
-                        lblTrangThai.Text = "Chưa tiếp nhận";
-                    else if (pbh.daXuLy == false)
+                    trangThai = "Chưa xử lý";
+                }
+                else
+                {
+                    trangThai = "Đã xử lý";
+                    card.setData(pbh.maPhieu, pbh.phong.maPhong, pbh.sv.MaSV, pbh.loaiPhanHoi, pbh.ngayBaoHong.ToString("dd/MM/yyyy"), trangThai);
+                    flpDanhSach.Controls.Add(card);
+                    card.OnSelect += (s, e) =>
                     {
-                        lblTrangThai.Text = "Chưa xử lý";
+                        groupBox4.Text = pbh.maPhieu;
+                        lblMaPhong.Text = pbh.phong.maPhong;
+                        lblMaSV.Text = pbh.sv.MaSV;
+                        lblMoTa.Text = pbh.noiDung;
+                        lblNgay.Text = pbh.ngayBaoHong.ToString("dd/MM/yyyy");
+                        lblThietBi.Text = pbh.loaiPhanHoi;
+                        if (pbh.daTiepNhan == false)
+                            lblTrangThai.Text = "Chưa tiếp nhận";
+                        else if (pbh.daXuLy == false)
+                        {
+                            lblTrangThai.Text = "Chưa xử lý";
 
-                    }
-                    else lblTrangThai.Text = "Đã xử lý";
-                    txtPhanHoi.Text = pbh.phanHoi;
-                    btnDaXuLy.Enabled = true;
-                    btnXacNhan.Enabled = true;
-                };
+                        }
+                        else lblTrangThai.Text = "Đã xử lý";
+                        txtPhanHoi.Text = pbh.phanHoi;
+                        btnDaXuLy.Enabled = true;
+                        btnXacNhan.Enabled = true;
+                    };
+                }
             }
         }
 
@@ -92,18 +104,20 @@ namespace WinFormsApp1.GUI
             var result = QuanLyKTX.Instance.QLPhieuBaoHong.danhSachMoi();
             loadPhieuBaoHong(result);
             lblThongbao.Text = $"Tìm thấy {result.Count} phiếu mới.";
+            lblThongbao.ForeColor = Color.Green;
         }
 
         private void btnDonChuaGiaiQuyet_Click(object sender, EventArgs e)
         {
-            var result = QuanLyKTX.Instance.QLPhieuBaoHong.danhSachPhieuBaoHongChuaXuLy();
+            var result = QuanLyKTX.Instance.QLPhieuBaoHong.danhSachPhanHoiChuaXuLy();
             loadPhieuBaoHong(result);
             lblThongbao.Text = $"Tìm thấy {result.Count} phiếu chưa xử lý.";
+            lblThongbao.ForeColor = Color.Green;
         }
 
         private void btnTimKiem_Click(object sender, EventArgs e)
         {
-          
+
             string thongTin = txtThongTin.Text.Trim();
             string thuocTinh = cboThuocTinh.Text;
 
@@ -113,13 +127,14 @@ namespace WinFormsApp1.GUI
             // 1. Kiểm tra nếu ô tìm kiếm trống
             if (string.IsNullOrEmpty(thongTin))
             {
-                var allList = QuanLyKTX.Instance.QLPhieuBaoHong.danhSachPhieuBaoHong();
+                var allList = QuanLyKTX.Instance.QLPhieuBaoHong.danhSachPhanHoi();
                 loadPhieuBaoHong(allList);
                 lblThongbao.Text = "Hiển thị toàn bộ danh sách.";
+                lblThongbao.ForeColor = Color.Black;
                 return;
             }
 
-            List<PhieuBaoHong> result = new List<PhieuBaoHong>();
+            List<PhanHoi> result = new List<PhanHoi>();
 
             switch (thuocTinh)
             {
@@ -127,8 +142,8 @@ namespace WinFormsApp1.GUI
                     result = QuanLyKTX.Instance.QLPhieuBaoHong.timKiemTheoPhong(thongTin);
                     break;
 
-                case "Thiết bị":
-                    result = QuanLyKTX.Instance.QLPhieuBaoHong.timKiemTheoThietBi(thongTin);
+                case "Loại phản hồi":
+                    result = QuanLyKTX.Instance.QLPhieuBaoHong.timKiemTheoLoaiPhanHoi(thongTin);
                     break;
 
                 case "Mã SV":
@@ -171,8 +186,14 @@ namespace WinFormsApp1.GUI
             else
             {
                 lblThongbao.Text = $"Tìm thấy {result.Count} kết quả.";
+                lblThongbao.ForeColor = Color.Green;
             }
-        
-    }
+
+        }
+
+        private void cboThuocTinh_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnTimKiem.Enabled = true;
+        }
     }
 }

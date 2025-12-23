@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UCNhanThan));
             lblHoTen = new Label();
             lblMaSV = new Label();
             lblMaPhong = new Label();
@@ -35,6 +36,8 @@
             lblSDT = new Label();
             lblHopDong = new Label();
             lblGioiTinh = new Label();
+            picAnh = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)picAnh).BeginInit();
             SuspendLayout();
             // 
             // lblHoTen
@@ -100,10 +103,23 @@
             lblGioiTinh.TabIndex = 6;
             lblGioiTinh.Text = "Giới tính";
             // 
+            // picAnh
+            // 
+            picAnh.BackgroundImage = (Image)resources.GetObject("picAnh.BackgroundImage");
+            picAnh.BackgroundImageLayout = ImageLayout.Zoom;
+            picAnh.BorderStyle = BorderStyle.FixedSingle;
+            picAnh.Location = new Point(7, 26);
+            picAnh.Name = "picAnh";
+            picAnh.Size = new Size(90, 111);
+            picAnh.SizeMode = PictureBoxSizeMode.Zoom;
+            picAnh.TabIndex = 7;
+            picAnh.TabStop = false;
+            // 
             // UCNhanThan
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(picAnh);
             Controls.Add(lblGioiTinh);
             Controls.Add(lblHopDong);
             Controls.Add(lblSDT);
@@ -113,6 +129,7 @@
             Controls.Add(lblHoTen);
             Name = "UCNhanThan";
             Size = new Size(402, 194);
+            ((System.ComponentModel.ISupportInitialize)picAnh).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -126,5 +143,6 @@
         private Label lblSDT;
         private Label lblHopDong;
         private Label lblGioiTinh;
+        private PictureBox picAnh;
     }
 }

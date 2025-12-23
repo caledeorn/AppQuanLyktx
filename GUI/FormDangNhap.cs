@@ -15,6 +15,7 @@ namespace WinFormsApp1.GUI
         public FormDangNhap()
         {
             InitializeComponent();
+            txtUserName.Focus();
         }
         private string KiemTraDangNhapVaLayQuyen(string userNhap, string passNhap)
         {
@@ -84,7 +85,7 @@ namespace WinFormsApp1.GUI
 
         private void FormDangNhap_Load(object sender, EventArgs e)
         {
-
+            txtUserName.Select();
         }
     }
 }

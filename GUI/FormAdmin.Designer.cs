@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             pnMenu = new Panel();
+            btnDangXuat = new Button();
+            label1 = new Label();
             btnPBH = new Button();
             btnHoaDon = new Button();
             btnHopDong = new Button();
@@ -42,6 +44,8 @@
             // 
             pnMenu.BackColor = SystemColors.AppWorkspace;
             pnMenu.BackgroundImageLayout = ImageLayout.Center;
+            pnMenu.Controls.Add(btnDangXuat);
+            pnMenu.Controls.Add(label1);
             pnMenu.Controls.Add(btnPBH);
             pnMenu.Controls.Add(btnHoaDon);
             pnMenu.Controls.Add(btnHopDong);
@@ -54,6 +58,30 @@
             pnMenu.TabIndex = 0;
             pnMenu.Paint += pnMenu_Paint;
             // 
+            // btnDangXuat
+            // 
+            btnDangXuat.Dock = DockStyle.Top;
+            btnDangXuat.FlatAppearance.BorderSize = 0;
+            btnDangXuat.FlatStyle = FlatStyle.Flat;
+            btnDangXuat.Location = new Point(0, 155);
+            btnDangXuat.Name = "btnDangXuat";
+            btnDangXuat.Size = new Size(175, 34);
+            btnDangXuat.TabIndex = 8;
+            btnDangXuat.Text = "Đăng xuất";
+            btnDangXuat.TextAlign = ContentAlignment.MiddleLeft;
+            btnDangXuat.UseVisualStyleBackColor = true;
+            btnDangXuat.Click += btnDangXuat_Click;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Dock = DockStyle.Bottom;
+            label1.Location = new Point(0, 671);
+            label1.Name = "label1";
+            label1.Size = new Size(64, 15);
+            label1.TabIndex = 9;
+            label1.Text = "                   ";
+            // 
             // btnPBH
             // 
             btnPBH.Dock = DockStyle.Top;
@@ -63,7 +91,7 @@
             btnPBH.Name = "btnPBH";
             btnPBH.Size = new Size(175, 31);
             btnPBH.TabIndex = 7;
-            btnPBH.Text = "Phiếu báo hỏng";
+            btnPBH.Text = "Phản hồi";
             btnPBH.TextAlign = ContentAlignment.MiddleLeft;
             btnPBH.UseVisualStyleBackColor = true;
             btnPBH.Click += btnPBH_Click;
@@ -146,6 +174,7 @@
             Text = "Quản lý ký túc xá";
             FormClosed += FormAdmin_FormClosed;
             pnMenu.ResumeLayout(false);
+            pnMenu.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -158,5 +187,7 @@
         private Button btnHoaDon;
         private Button btnPhong;
         private Button btnHopDong;
+        private Label label1;
+        private Button btnDangXuat;
     }
 }

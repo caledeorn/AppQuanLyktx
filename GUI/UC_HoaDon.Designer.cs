@@ -250,6 +250,7 @@
             // 
             // cboThuocTinh
             // 
+            cboThuocTinh.DropDownStyle = ComboBoxStyle.DropDownList;
             cboThuocTinh.FormattingEnabled = true;
             cboThuocTinh.Location = new Point(753, 79);
             cboThuocTinh.Margin = new Padding(3, 2, 3, 2);
@@ -356,7 +357,7 @@
             // 
             // btnClear
             // 
-            btnClear.Location = new Point(881, 15);
+            btnClear.Location = new Point(544, 14);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(82, 38);
             btnClear.TabIndex = 4;
@@ -366,7 +367,7 @@
             // 
             // btnXoa
             // 
-            btnXoa.Location = new Point(499, 14);
+            btnXoa.Location = new Point(409, 14);
             btnXoa.Margin = new Padding(3, 2, 3, 2);
             btnXoa.Name = "btnXoa";
             btnXoa.Size = new Size(67, 39);
@@ -377,7 +378,7 @@
             // 
             // btnSua
             // 
-            btnSua.Location = new Point(299, 14);
+            btnSua.Location = new Point(261, 13);
             btnSua.Margin = new Padding(3, 2, 3, 2);
             btnSua.Name = "btnSua";
             btnSua.Size = new Size(67, 39);

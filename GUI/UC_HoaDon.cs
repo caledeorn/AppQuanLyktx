@@ -17,7 +17,7 @@ namespace WinFormsApp1.GUI
         public UC_HoaDon()
         {
             InitializeComponent();
-            loadData(dgvDanhSachHoaDon, QuanLyKTX.Instance.QLHoaDon.danhSachHoaDon());
+            
             clear();
             btnTimKiem.Enabled = false;
             LoadComboBoxPhong();
@@ -45,7 +45,7 @@ namespace WinFormsApp1.GUI
         }
         private void UC_HoaDon_Load(object sender, EventArgs e)
         {
-
+            loadData(dgvDanhSachHoaDon, QuanLyKTX.Instance.QLHoaDon.danhSachHoaDon());
         }
         private void ThietLapCot(DataGridView dgv, string tenBien, string tieuDe, int doRong)
         {
@@ -67,11 +67,13 @@ namespace WinFormsApp1.GUI
             {
                 lblThongBao.Text = "Lỗi: Số điện phải là một số nguyên!";
                 txtSoDien.Focus(); // Đưa con trỏ chuột về ô lỗi
+                lblThongBao.ForeColor = Color.Red;
                 return; // Dừng hàm lại ngay, không chạy tiếp
             }
             if (!int.TryParse(txtSoNuoc.Text, out soNuoc))
             {
                 lblThongBao.Text = "Lỗi: Số nước phải là một số nguyên!";
+                lblThongBao.ForeColor = Color.Red;
                 txtSoNuoc.Focus();
                 return;
             }
@@ -81,10 +83,13 @@ namespace WinFormsApp1.GUI
             {
                 lblThongBao.Text = result;
                 loadData(dgvDanhSachHoaDon, QuanLyKTX.Instance.QLHoaDon.danhSachHoaDon());
+                lblThongBao.ForeColor = Color.Green;
+                dgvDanhSachTimKiem.Focus();
             }
             else
             {
                 lblThongBao.Text = result;
+                lblThongBao.ForeColor = Color.Red;
             }
         }
 
@@ -98,12 +103,14 @@ namespace WinFormsApp1.GUI
             if (!int.TryParse(txtSoDien.Text, out soDien))
             {
                 lblThongBao.Text = "Lỗi: Số điện phải là một số nguyên!";
+                lblThongBao.ForeColor = Color.Red;
                 txtSoDien.Focus(); // Đưa con trỏ chuột về ô lỗi
                 return; // Dừng hàm lại ngay, không chạy tiếp
             }
             if (!int.TryParse(txtSoNuoc.Text, out soNuoc))
             {
                 lblThongBao.Text = "Lỗi: Số nước phải là một số nguyên!";
+                lblThongBao.ForeColor = Color.Red;
                 txtSoNuoc.Focus();
                 return;
             }
@@ -112,17 +119,29 @@ namespace WinFormsApp1.GUI
             {
                 lblThongBao.Text = result;
                 loadData(dgvDanhSachHoaDon, QuanLyKTX.Instance.QLHoaDon.danhSachHoaDon());
+                lblThongBao.ForeColor = Color.Green;
+                txtSoDien.Text = "";
+                txtSoNuoc.Text= "";
+                cboMaPhong.SelectedIndex = -1;
+
             }
             else
             {
                 lblThongBao.Text = result;
+                lblThongBao.ForeColor = Color.Red;
             }
         }
         private void loadData(DataGridView dgv, List<HoaDon> hoaDon)
         {
             dgv.DataSource = null;
             dgv.DataSource = hoaDon;
-
+            dgv.Columns["phong"].Visible = false;   
+            ThietLapCot(dgv, "maHoaDon", "Mã Hóa Đơn", 100);
+            ThietLapCot(dgv, "maPhong", "Mã Phòng", 100);
+            ThietLapCot(dgv, "soDien", "Số Điện", 80);
+            ThietLapCot(dgv, "soNuoc", "Số Nước", 80);
+            ThietLapCot(dgv, "ngayLap", "Ngày Lập", 120);
+            ThietLapCot(dgv, "trangThai", "Thanh Toán", 100);
         }
         private void btnXoa_Click(object sender, EventArgs e)
         {
@@ -132,11 +151,13 @@ namespace WinFormsApp1.GUI
             if (result == "Xóa hóa đơn thành công.")
             {
                 lblThongBao.Text = result;
+                lblThongBao.ForeColor = Color.Green;
                 loadData(dgvDanhSachHoaDon, QuanLyKTX.Instance.QLHoaDon.danhSachHoaDon());
             }
             else
             {
                 lblThongBao.Text = result;
+                lblThongBao.ForeColor = Color.Red;
             }
         }
 
@@ -186,9 +207,17 @@ namespace WinFormsApp1.GUI
         {
             string tuKhoa = txtThongTin.Text;
             string thuocTinh = cboThuocTinh.SelectedItem.ToString();
+            if (string.IsNullOrEmpty(thuocTinh))
+            {
+                lblTBTK.Text = "Vui lòng chọn thuộc tính để tìm kiếm.";
+                lblTBTK.ForeColor = Color.Red;
+                cboThuocTinh.Focus();
+                return;
+            }
             var ketQua = QuanLyKTX.Instance.QLHoaDon.timKiemHoaDon(tuKhoa, thuocTinh);
             loadData(dgvDanhSachTimKiem, ketQua);
             lblTBTK.Text = $"Tìm thấy {ketQua.Count} hóa đơn.";
+            lblTBTK.ForeColor = Color.Green;
         }
         private void clear()
         {
@@ -234,6 +263,7 @@ namespace WinFormsApp1.GUI
                     cboMaPhong.Enabled = false;
                     dtpNgay.Enabled = false;
                     btnClear.Enabled = true;
+                    lblThongBao.Text = "";
                 }
             }
             
@@ -265,6 +295,7 @@ namespace WinFormsApp1.GUI
             var ketQua = QuanLyKTX.Instance.QLHoaDon.timKiemTheoTrangThai(false);
             loadData(dgvDanhSachTimKiem, ketQua);
             lblTBTK.Text = $"{ketQua.Count} hóa đơn chưa thanh toán.";
+            lblTBTK.ForeColor = Color.Green;
         }
 
 

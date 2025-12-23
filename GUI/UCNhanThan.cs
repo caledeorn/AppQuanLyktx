@@ -16,7 +16,7 @@ namespace WinFormsApp1.GUI
         {
             InitializeComponent();
         }
-        public void setData(string hoTen,string MaSV, string maPhong, string soDienThoai,bool gioiTinh,DateTime ngaySinh, DateTime HopDong)
+        public void setData(string hoTen,string MaSV, string maPhong, string soDienThoai,bool gioiTinh,DateTime ngaySinh, DateTime HopDong,string anhDaiDien)
         {
             lblHoTen.Text+= " "+hoTen;
             lblMaSV.Text += " " + MaSV;
@@ -32,8 +32,22 @@ namespace WinFormsApp1.GUI
         lblSDT.Text += " " + soDienThoai;
             lblGioiTinh.Text += " " + (gioiTinh ? "Nam" : "Nữ");
             lblNgaySinh.Text += " " + ngaySinh.ToString("dd/MM/yyyy");
+            picAnh.Image?.Dispose();
+            picAnh.Image = null;
+            picAnh.Tag = null;
 
-            
+            if (!string.IsNullOrWhiteSpace(anhDaiDien))
+            {
+                string fullPath = Path.Combine( Application.StartupPath,anhDaiDien.TrimStart('\\', '/'));
+
+                if (File.Exists(fullPath))
+                {
+                    // Cách an toàn: FromFile + Dispose ảnh cũ
+                    picAnh.Image = Image.FromFile(fullPath);
+                    picAnh.Tag = anhDaiDien;
+                }
+            }
+
         }
     }
 }

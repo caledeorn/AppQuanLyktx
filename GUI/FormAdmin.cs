@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WinFormsApp1.BLL;
 using WinFormsApp1.GUI;
 
 namespace WinFormsApp1
@@ -62,19 +63,44 @@ namespace WinFormsApp1
 
         private void button6_Click(object sender, EventArgs e)
         {
+ 
             UC_HoaDon uc = new UC_HoaDon();
             LoadUserControl(uc);
+
         }
 
         private void btnPBH_Click(object sender, EventArgs e)
         {
-            UC_PhieuBaoHong uc = new UC_PhieuBaoHong();
+            UC_PhanHoi uc = new UC_PhanHoi();
             LoadUserControl(uc);
         }
 
         private void FormAdmin_FormClosed(object sender, FormClosedEventArgs e)
         {
+            QuanLyKTX.Instance.SaveAllData();
             Application.Exit();
+        }
+
+        private void btnDangXuat_Click(object sender, EventArgs e)
+        {
+            // 1. Hỏi người dùng có chắc muốn đăng xuất không
+            DialogResult traloi = MessageBox.Show("Bạn có chắc chắn muốn đăng xuất không?",
+                                                  "Thông báo",
+                                                  MessageBoxButtons.YesNo,
+                                                  MessageBoxIcon.Question);
+
+            // 2. Nếu chọn Yes thì đăng xuất
+            if (traloi == DialogResult.Yes)
+            {
+                QuanLyKTX.Instance.SaveAllData(); // Lưu dữ liệu trước khi đăng xuất
+                Application.Restart(); // Khởi động lại ứng dụng
+                Environment.Exit(0);   // Đảm bảo đóng hoàn toàn luồng cũ
+            }
+        }
+
+        private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+
         }
     }
 }

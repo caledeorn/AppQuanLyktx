@@ -145,7 +145,7 @@
             picAnh.Location = new Point(533, 16);
             picAnh.Name = "picAnh";
             picAnh.Size = new Size(90, 111);
-            picAnh.SizeMode = PictureBoxSizeMode.AutoSize;
+            picAnh.SizeMode = PictureBoxSizeMode.Zoom;
             picAnh.TabIndex = 6;
             picAnh.TabStop = false;
             // 
@@ -483,6 +483,7 @@
             dgvDanhSachSinhVien.RowHeadersWidth = 51;
             dgvDanhSachSinhVien.Size = new Size(600, 270);
             dgvDanhSachSinhVien.TabIndex = 0;
+            dgvDanhSachSinhVien.CellClick += dgvDanhSachSinhVien_CellClick;
             dgvDanhSachSinhVien.DataError += dgvDanhSachSinhVien_DataError;
             // 
             // dgvDanhSachTimKiem

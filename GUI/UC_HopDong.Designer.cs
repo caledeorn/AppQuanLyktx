@@ -168,6 +168,7 @@
             // 
             // cboThuocTInh
             // 
+            cboThuocTInh.DropDownStyle = ComboBoxStyle.DropDownList;
             cboThuocTInh.FormattingEnabled = true;
             cboThuocTInh.Location = new Point(778, 81);
             cboThuocTInh.Margin = new Padding(3, 2, 3, 2);

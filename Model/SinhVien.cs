@@ -14,6 +14,8 @@ namespace WinFormsApp1.Model
         public string SoDienThoai { get; set; }
         public bool GioiTinh { get; set; }
         public Phong? Phong { get; set; }
+        // path to image relative to app folder (e.g. "Images\sv001.jpg")
+        public string AnhDaiDien { get; set; }
         public SinhVien(string maSV, string hoTen, DateTime ngaySinh, string soDienThoai, bool gioiTinh)
         {
             MaSV = maSV;
@@ -21,8 +23,9 @@ namespace WinFormsApp1.Model
             NgaySinh = ngaySinh;
             SoDienThoai = soDienThoai;
             GioiTinh = gioiTinh;
+            AnhDaiDien = string.Empty;
         }
-        public SinhVien() { }
+        public SinhVien() { AnhDaiDien = string.Empty; }
         public void addPhong(Phong p)
         {
             Phong = p;

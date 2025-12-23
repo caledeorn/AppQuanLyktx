@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using WinFormsApp1.BLL;
 using WinFormsApp1.Model;
+using WinFormsApp1.GUI;
 
 namespace WinFormsApp1.GUI
 {
@@ -43,9 +44,17 @@ namespace WinFormsApp1.GUI
                     txtMaPhong.Text = phong.maPhong;
                     txtSoLuong.Text = phong.soLuong.ToString();
                     txtDonGia.Text = phong.donGia.ToString();
-                    if (!phong.gioiTinh)
+                    lblThongbao.Text = "";
+                    // gioiTinh is non-nullable bool in model
+                    if (phong.gioiTinh)
                     {
                         radNam.Checked = true;
+                        radNu.Checked = false;
+                    }
+                    else
+                    {
+                        radNu.Checked = true;
+                        radNam.Checked = false;
                     }
                 };
                 flpDanhSachPhong.Controls.Add(card);
@@ -56,7 +65,7 @@ namespace WinFormsApp1.GUI
             lblDanhSach.Text = "Danh sách sinh viên";
             flpThongTin.Controls.Clear();
             CardThongTin card = new CardThongTin();
-            card.setData(phong.maPhong, phong.soLuong, phong.donGia, phong.gioiTinh, phong.SoNguoiHienTai, 0);
+            card.setData(phong.maPhong, phong.soLuong, phong.donGia, phong.gioiTinh, phong.SoNguoiHienTai);
             flpThongTin.Controls.Add(card);
             dgvDanhSach.DataSource = null;
             dgvDanhSach.DataSource = phong.danhSachSV;
@@ -65,9 +74,13 @@ namespace WinFormsApp1.GUI
             dgvDanhSach.Columns["Phong"].Visible = false;
             dgvDanhSach.Columns["GioiTinhHienThi"].Visible = false;
             dgvDanhSach.Columns["MaPhong"].Visible = false;
+            dgvDanhSach.Columns["AnhDaiDien"].Visible = false;
             ThietLapCot(dgvDanhSach, "MaSV", "Mã Sv", 80);
-            ThietLapCot(dgvDanhSach, "hoTen", "Họ và tên ", 150);
-            ThietLapCot(dgvDanhSach, "soDienThoai", "Số điện thoại ", 100);
+            ThietLapCot(dgvDanhSach, "HoTen", "Họ và tên ", 150);
+            ThietLapCot(dgvDanhSach, "SoDienThoai", "Số điện thoại ", 100);
+
+            // Localize headers
+            UIHelper.LocalizeDataGridView(dgvDanhSach);
         }
         private void ThietLapCot(DataGridView dgv, string tenBien, string tieuDe, int doRong)
         {
@@ -91,17 +104,23 @@ namespace WinFormsApp1.GUI
             if (!int.TryParse(soLuongText, out int soLuong))
             {
                 lblThongbao.Text = "Lỗi: Số lượng phải là một số nguyên hợp lệ.";
+                txtDonGia.Focus();
+                lblThongbao.ForeColor = Color.Red;
                 return;
             }
             if (!int.TryParse(donGiaText, out int donGia))
             {
                 lblThongbao.Text = "Lỗi: Đơn giá phải là một số nguyên hợp lệ.";
+                txtDonGia.Focus();
+                lblThongbao.ForeColor = Color.Red;
                 return;
             }
             string ketQua = QuanLyKTX.Instance.QLPhong.themPhong(maPhong, soLuong, donGia);
             lblThongbao.Text = ketQua;
             if (ketQua.StartsWith("Thêm phòng thành công"))
             {
+                lblThongbao.ForeColor = Color.Green;
+                lblThongbao.Text = ketQua;
                 txtMaPhong.Clear();
                 txtSoLuong.Clear();
                 txtDonGia.Clear();
@@ -132,23 +151,29 @@ namespace WinFormsApp1.GUI
             if (!int.TryParse(soLuongText, out int soLuong))
             {
                 lblThongbao.Text = "Lỗi: Số lượng phải là một số nguyên hợp lệ.";
+                lblThongbao.ForeColor = Color.Red;
+                txtSoLuong.Focus();
                 return;
             }
             if (!int.TryParse(donGiaText, out int donGia))
             {
                 lblThongbao.Text = "Lỗi: Đơn giá phải là một số nguyên hợp lệ.";
+                lblThongbao.ForeColor = Color.Red;
+                txtDonGia.Focus();
                 return;
             }
             string result = QuanLyKTX.Instance.QLPhong.suaPhong(maPhong, soLuong, donGia);
             if (result.StartsWith("Sửa phòng thành công"))
             {
                 lblThongbao.Text = result;
+                lblThongbao.ForeColor = Color.Green;
                 LoadDanhSachPhong(QuanLyKTX.Instance.QLPhong.danhSachPhong());
                 clear();
             }
             else
             {
                 lblThongbao.Text = result;
+                lblThongbao.ForeColor = Color.Red;
             }
         }
 
@@ -159,12 +184,14 @@ namespace WinFormsApp1.GUI
             if (result.StartsWith("Xóa phòng thành công"))
             {
                 lblThongbao.Text = result;
+                lblThongbao.ForeColor = Color.Green;
                 LoadDanhSachPhong(QuanLyKTX.Instance.QLPhong.danhSachPhong());
                 clear();
             }
             else
             {
                 lblThongbao.Text = result;
+                lblThongbao.ForeColor = Color.Red;
             }
         }
 
@@ -177,6 +204,8 @@ namespace WinFormsApp1.GUI
                 if(!int.TryParse(timKiem, out int soLuong))
                 {
                     lblTBTK.Text = "Lỗi: Vui lòng nhập số hợp lệ.";
+                    txtText.Focus();
+                    lblTBTK.ForeColor = Color.Red;
                     return;
                 }
             }
@@ -184,6 +213,7 @@ namespace WinFormsApp1.GUI
 
             LoadDanhSachPhong(result);
             lblTBTK.Text = $"Tìm thấy {result.Count} phòng.";
+            lblTBTK.ForeColor = Color.Green;
         }
         private void cboThuocTinh_SelectedIndexChanged(object sender, EventArgs e)
         {

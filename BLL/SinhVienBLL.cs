@@ -43,7 +43,17 @@ namespace WinFormsApp1.BLL
                 GioiTinh = gioiTinh
             };
             _danhSachSinhVien.Add(sv);
+            // Save to file
+            //svRepo.SaveSinhVienToFile("SinhVien.txt", _danhSachSinhVien);
             return "Thêm sinh viên thành công.";
+        }
+        public string CapNhatAnhSinhVien(string maSV, string anhDuongDan)
+        {
+            var sv = _danhSachSinhVien.FirstOrDefault(s => s.MaSV == maSV);
+            if (sv == null) return "Lỗi: Không tìm thấy sinh viên.";
+            sv.AnhDaiDien = anhDuongDan ?? string.Empty;
+            //svRepo.SaveSinhVienToFile("SinhVien.txt", _danhSachSinhVien);
+            return "Cập nhật ảnh thành công.";
         }
         public string xoaSinhVien(string maSV)
         {
@@ -58,6 +68,7 @@ namespace WinFormsApp1.BLL
             }
 
             _danhSachSinhVien.Remove(sv);
+            //svRepo.SaveSinhVienToFile("SinhVien.txt", _danhSachSinhVien);
             return "Xóa sinh viên thành công.";
 
         }
@@ -76,6 +87,7 @@ namespace WinFormsApp1.BLL
             sv.NgaySinh = ngaySinh;
             sv.SoDienThoai = SDT;
             sv.GioiTinh = gioiTinh;
+            //svRepo.SaveSinhVienToFile("SinhVien.txt", _danhSachSinhVien);
             return "Sửa sinh viên thành công.";
         }
         public List<SinhVien> sapXep(PhongBLL QLPhong)

@@ -39,13 +39,13 @@
             label2 = new Label();
             groupBox1 = new GroupBox();
             splitContainer5 = new SplitContainer();
-            label1 = new Label();
+            lblDanhSach = new Label();
             groupBox2 = new GroupBox();
             dgvDanhSach = new DataGridView();
             splitContainer6 = new SplitContainer();
             groupBox3 = new GroupBox();
             lblThongbao = new Label();
-            txtThietBi = new TextBox();
+            txtLoaiPhanHoi = new TextBox();
             label6 = new Label();
             button1 = new Button();
             txtMoTa = new TextBox();
@@ -246,7 +246,7 @@
             // 
             // splitContainer5.Panel1
             // 
-            splitContainer5.Panel1.Controls.Add(label1);
+            splitContainer5.Panel1.Controls.Add(lblDanhSach);
             // 
             // splitContainer5.Panel2
             // 
@@ -255,16 +255,16 @@
             splitContainer5.SplitterDistance = 25;
             splitContainer5.TabIndex = 0;
             // 
-            // label1
+            // lblDanhSach
             // 
-            label1.AutoSize = true;
-            label1.Dock = DockStyle.Left;
-            label1.Font = new Font("Times New Roman", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(0, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(230, 22);
-            label1.TabIndex = 1;
-            label1.Text = "Danh sách bạn cùng phòng";
+            lblDanhSach.AutoSize = true;
+            lblDanhSach.Dock = DockStyle.Left;
+            lblDanhSach.Font = new Font("Times New Roman", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblDanhSach.Location = new Point(0, 0);
+            lblDanhSach.Name = "lblDanhSach";
+            lblDanhSach.Size = new Size(230, 22);
+            lblDanhSach.TabIndex = 1;
+            lblDanhSach.Text = "Danh sách bạn cùng phòng";
             // 
             // groupBox2
             // 
@@ -308,7 +308,7 @@
             // groupBox3
             // 
             groupBox3.Controls.Add(lblThongbao);
-            groupBox3.Controls.Add(txtThietBi);
+            groupBox3.Controls.Add(txtLoaiPhanHoi);
             groupBox3.Controls.Add(label6);
             groupBox3.Controls.Add(button1);
             groupBox3.Controls.Add(txtMoTa);
@@ -329,21 +329,21 @@
             lblThongbao.Size = new Size(0, 15);
             lblThongbao.TabIndex = 6;
             // 
-            // txtThietBi
+            // txtLoaiPhanHoi
             // 
-            txtThietBi.Location = new Point(72, 67);
-            txtThietBi.Name = "txtThietBi";
-            txtThietBi.Size = new Size(246, 21);
-            txtThietBi.TabIndex = 5;
+            txtLoaiPhanHoi.Location = new Point(94, 70);
+            txtLoaiPhanHoi.Name = "txtLoaiPhanHoi";
+            txtLoaiPhanHoi.Size = new Size(224, 21);
+            txtLoaiPhanHoi.TabIndex = 5;
             // 
             // label6
             // 
             label6.AutoSize = true;
             label6.Location = new Point(12, 70);
             label6.Name = "label6";
-            label6.Size = new Size(48, 15);
+            label6.Size = new Size(76, 15);
             label6.TabIndex = 4;
-            label6.Text = "Thiết bị:";
+            label6.Text = "Loại phản hồi:";
             // 
             // button1
             // 
@@ -357,9 +357,9 @@
             // 
             // txtMoTa
             // 
-            txtMoTa.Location = new Point(72, 105);
+            txtMoTa.Location = new Point(94, 105);
             txtMoTa.Name = "txtMoTa";
-            txtMoTa.Size = new Size(246, 21);
+            txtMoTa.Size = new Size(224, 21);
             txtMoTa.TabIndex = 2;
             // 
             // label4
@@ -479,12 +479,12 @@
         private Button btnHoaDon;
         private Button btnNhanThan;
         private Label label2;
-        private Label label1;
+        private Label lblDanhSach;
         private DataGridView dgvDanhSach;
         private Label label5;
         private FlowLayoutPanel flpThongBao;
         private Label label6;
-        private TextBox txtThietBi;
+        private TextBox txtLoaiPhanHoi;
         private Label lblThongbao;
     }
 }

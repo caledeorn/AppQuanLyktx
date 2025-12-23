@@ -19,8 +19,8 @@ namespace WinFormsApp1.BLL
             foreach (var hd in _danhSachHopDong)
             {
                 hd.sv.Phong = hd.p;
-                hd.p.danhSachSV.Add(hd.sv);
-
+                // Gọi themSV() để tự động set gioiTinh cho phòng (thay vì add trực tiếp)
+                hd.p.themSV(hd.sv);
             }
         }
         public List<HopDong> danhSachHopDong()
@@ -47,6 +47,10 @@ namespace WinFormsApp1.BLL
             HopDong hd = new HopDong(sv, p, ngayBatDau, ngayKetThuc);
             p.themSV(sv);
             _danhSachHopDong.Add(hd);
+
+            // Persist changes to working file immediately
+            try { hdRepo.SaveHopDongToFile("HopDong.txt", _danhSachHopDong); } catch { }
+
             return "Thêm hợp đồng thành công.";
         }
         public SinhVien timKiem(string maSV)
@@ -66,7 +70,12 @@ namespace WinFormsApp1.BLL
                 return "Lỗi: Không tìm thấy hợp đồng với mã sinh viên đã cho.";
             }
             hd.p.xoaSV(hd.sv);
+            hd.sv.Phong = null;
             _danhSachHopDong.Remove(hd);
+
+            // Persist
+            try { hdRepo.SaveHopDongToFile("HopDong.txt", _danhSachHopDong); } catch { }
+
             return "Xóa hợp đồng thành công.";
         }
         public List<HopDong> danhSachHopDongHetHan(DateTime ngayHienTai)

@@ -30,7 +30,6 @@
         {
             splitContainer1 = new SplitContainer();
             lblMaPhong = new Label();
-            lblSoDBH = new Label();
             lblGioiTinh = new Label();
             lblTienPhong = new Label();
             lblSoSV = new Label();
@@ -55,13 +54,12 @@
             // 
             // splitContainer1.Panel2
             // 
-            splitContainer1.Panel2.Controls.Add(lblSoDBH);
             splitContainer1.Panel2.Controls.Add(lblGioiTinh);
             splitContainer1.Panel2.Controls.Add(lblTienPhong);
             splitContainer1.Panel2.Controls.Add(lblSoSV);
             splitContainer1.Panel2.Controls.Add(lblSoLuong);
-            splitContainer1.Size = new Size(150, 240);
-            splitContainer1.SplitterDistance = 37;
+            splitContainer1.Size = new Size(150, 218);
+            splitContainer1.SplitterDistance = 33;
             splitContainer1.TabIndex = 0;
             // 
             // lblMaPhong
@@ -74,19 +72,10 @@
             lblMaPhong.TabIndex = 0;
             lblMaPhong.Text = "label1";
             // 
-            // lblSoDBH
-            // 
-            lblSoDBH.AutoSize = true;
-            lblSoDBH.Location = new Point(12, 156);
-            lblSoDBH.Name = "lblSoDBH";
-            lblSoDBH.Size = new Size(101, 15);
-            lblSoDBH.TabIndex = 4;
-            lblSoDBH.Text = "Số đơn báo hỏng:";
-            // 
             // lblGioiTinh
             // 
             lblGioiTinh.AutoSize = true;
-            lblGioiTinh.Location = new Point(12, 86);
+            lblGioiTinh.Location = new Point(12, 97);
             lblGioiTinh.Name = "lblGioiTinh";
             lblGioiTinh.Size = new Size(58, 15);
             lblGioiTinh.TabIndex = 3;
@@ -95,7 +84,7 @@
             // lblTienPhong
             // 
             lblTienPhong.AutoSize = true;
-            lblTienPhong.Location = new Point(12, 50);
+            lblTienPhong.Location = new Point(12, 58);
             lblTienPhong.Name = "lblTienPhong";
             lblTienPhong.Size = new Size(71, 15);
             lblTienPhong.TabIndex = 2;
@@ -104,7 +93,7 @@
             // lblSoSV
             // 
             lblSoSV.AutoSize = true;
-            lblSoSV.Location = new Point(12, 120);
+            lblSoSV.Location = new Point(12, 130);
             lblSoSV.Name = "lblSoSV";
             lblSoSV.Size = new Size(76, 15);
             lblSoSV.TabIndex = 1;
@@ -125,7 +114,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(splitContainer1);
             Name = "CardThongTin";
-            Size = new Size(150, 240);
+            Size = new Size(150, 218);
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel1.PerformLayout();
             splitContainer1.Panel2.ResumeLayout(false);
@@ -139,7 +128,6 @@
 
         private SplitContainer splitContainer1;
         private Label lblMaPhong;
-        private Label lblSoDBH;
         private Label lblGioiTinh;
         private Label lblTienPhong;
         private Label lblSoSV;
